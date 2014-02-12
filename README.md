@@ -80,7 +80,7 @@ local success = t4:registerForChange('settings','editor','usetabs',someFunction)
 assert(success) --> FAIL
 ```
 
-# Removing a Registration
+## Removing a Registration
 If you have a callback that you no longer wish to have invoked, there is an equivalent `unregisterForChange()` method on the notifitable.
 
 ```lua
