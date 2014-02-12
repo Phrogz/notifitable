@@ -10,17 +10,19 @@ keys in the table get a new value.
 ## Simple Usage
 
 ```lua
+-- Call the function whatever you like
+local notifitable = require('notifitable')
+local t1 = notifitable()
+
 function yellOnValueChanges(key,newval,oldval)
   print("The key", key, "just changed from", oldval, "to", newval)
 end
 
-local notifitable = require('notifitable')
-local t1 = notifitable()
 t1:registerForChange( 'foo', yellOnValueChange )
 
 t1.foo = 42 --> "The key foo just changed from nil to 42"
-t1.foo = 42 --> (no callback for same value)
-t1.bar = 99 --> (no callback for non-registered keys)
+t1.foo = 42 --  (no callback for same value)
+t1.bar = 99 --  (no callback for non-registered keys)
 t1.foo = 17 --> "The key foo just changed from 42 to 17"
 ```
 
@@ -84,7 +86,7 @@ If you have a callback that you no longer wish to have invoked, there is an equi
 ```lua
 t:registerForChange('settings','editor','usetabs',someFunction)
 -- and then later
-t:registerForChange('settings','editor','usetabs',someFunction)
+t:unregisterForChange('settings','editor','usetabs',someFunction)
 ```
 
 _Note that this does not 'unwrap' any notifitables along the path that might no longer be needed for registration._
@@ -98,6 +100,5 @@ _Note that this does not 'unwrap' any notifitables along the path that might no 
 * There's no reason to wrap every table on the path down a hierarchy as a notifitable; only the last table in the list needs to support registration.
 
 # License
-
 Notifitable is licensed under the MIT License.
 See the file LICENSE for details.
